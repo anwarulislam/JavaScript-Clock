@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript Clock by Anwarul Islam</title>
+</head>
+
+<body>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .clock-circle {
+            position: relative;
+            border: .2px solid #bada55;
+            border-radius: 50%;
+            height: 500px;
+            width: 500px;
+            justify-content: center;
+        }
+
+        .hand {
+            position: absolute;
+            height: 3px;
+            width: 50%;
+            background-color: #bada55;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            border-radius: 8px 0 0 8px;
+            transition: all 0.05s;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+
+        .hourkey {
+            width: 40%;
+            left: 10%;
+            height: 6px;
+        }
+
+        .minkey {
+            width: 45%;
+            left: 5%;
+            height: 6px;
+        }
+
+        .seckey {
+            width: 49%;
+            left: 1%;
+        }
+
+        .middle-circle {
+            position: absolute;
+            border-radius: 50%;
+            height: 20px;
+            width: 20px;
+            top: 50%;
+            right: 50%;
+            margin: -10px;
+            background: #bada55;
+        }
+
+        .section {
+            position: absolute;
+            border-left: 10px solid red;
+            border-right: 10px solid red;
+            height: 3px;
+            width: 100%;
+            top: 50%;
+            left: -2%;
+            border-radius: 8px 0 0 8px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="clock-circle">
+            <div class="sections"></div>
+            <div class="hand hourkey"></div>
+            <div class="hand minkey"></div>
+            <div class="hand seckey"></div>
+            <div class="middle-circle"></div>
+        </div>
+    </div>
+
+    <script>
+
+        let sections = '';
+
+        for (i = 1; i < 31; i++) {
+            sections += `<div class="section" style="transform: rotate(${6 * i}deg)"></div>`
+        }
+        console.log(sections)
+
+        const clockCircle = document.querySelector('.sections')
+        const hourHand = document.querySelector('.hourkey')
+        const minHand = document.querySelector('.minkey')
+        const secHand = document.querySelector('.seckey')
+
+        clockCircle.innerHTML = sections
+
+        function playClock() {
+            let now = new Date()
+            let hour = now.getHours()
+            let min = now.getMinutes()
+            let second = now.getSeconds()
+
+            secHand.style = `transform: rotate(${(second * 6) + 90}deg)`;
+            minHand.style = `transform: rotate(${(min * 6) + 90}deg)`;
+            hourHand.style = `transform: rotate(${(hour * 30) + 90}deg)`;
+
+        }
+
+        setInterval(playClock, 1000)
+    </script>
+</body>
+
+</html>
